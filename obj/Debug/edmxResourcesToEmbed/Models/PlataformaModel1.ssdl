@@ -1,0 +1,323 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="dbEstudiantesModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="admin">
+    <Key>
+      <PropertyRef Name="idAdmin" />
+    </Key>
+    <Property Name="idAdmin" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="nvarchar" MaxLength="50" />
+    <Property Name="apellido" Type="nvarchar" MaxLength="50" />
+    <Property Name="correo" Type="nvarchar" MaxLength="50" />
+    <Property Name="password" Type="nvarchar" MaxLength="50" />
+    <Property Name="telefono" Type="nvarchar" MaxLength="50" />
+    <Property Name="direccion" Type="nvarchar" MaxLength="50" />
+    <Property Name="id_tipo" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="alumno">
+    <Key>
+      <PropertyRef Name="idAlumno" />
+    </Key>
+    <Property Name="idAlumno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="nvarchar" MaxLength="50" />
+    <Property Name="apellido" Type="nvarchar" MaxLength="50" />
+    <Property Name="correo" Type="nvarchar" MaxLength="50" />
+    <Property Name="password" Type="nvarchar" MaxLength="50" />
+    <Property Name="direccion" Type="nvarchar" MaxLength="50" />
+    <Property Name="nie" Type="nvarchar" MaxLength="50" />
+    <Property Name="id_tipo" Type="int" Nullable="false" />
+    <Property Name="idGrado" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Asignatura">
+    <Key>
+      <PropertyRef Name="idAsignatura" />
+    </Key>
+    <Property Name="idAsignatura" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="docente">
+    <Key>
+      <PropertyRef Name="idDocente" />
+    </Key>
+    <Property Name="idDocente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="nvarchar" MaxLength="50" />
+    <Property Name="apellido" Type="nvarchar" MaxLength="50" />
+    <Property Name="direccion" Type="nvarchar" MaxLength="50" />
+    <Property Name="correo" Type="nvarchar" MaxLength="50" />
+    <Property Name="password" Type="nvarchar" MaxLength="50" />
+    <Property Name="telefono" Type="nvarchar" MaxLength="50" />
+    <Property Name="dui" Type="nvarchar" MaxLength="50" />
+    <Property Name="id_tipo" Type="int" Nullable="false" />
+    <Property Name="idAsignatura" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="grado">
+    <Key>
+      <PropertyRef Name="idGrado" />
+    </Key>
+    <Property Name="idGrado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="grado" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Grado_Seccion">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idGrado" Type="int" />
+    <Property Name="idSeccion" Type="int" />
+  </EntityType>
+  <EntityType Name="Notas">
+    <Key>
+      <PropertyRef Name="idNotas" />
+    </Key>
+    <Property Name="idNotas" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nota1" Type="float" />
+    <Property Name="nota2" Type="float" />
+    <Property Name="nota3" Type="float" />
+    <Property Name="nota4" Type="float" />
+    <Property Name="idAsignatura" Type="int" Nullable="false" />
+    <Property Name="idAlumno" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Notas_Periodos">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idNotas" Type="int" />
+    <Property Name="idPeriodos" Type="int" />
+  </EntityType>
+  <EntityType Name="Periodos">
+    <Key>
+      <PropertyRef Name="idPeriodos" />
+    </Key>
+    <Property Name="idPeriodos" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="periodo" Type="int" />
+  </EntityType>
+  <EntityType Name="seccion">
+    <Key>
+      <PropertyRef Name="idSeccion" />
+    </Key>
+    <Property Name="idSeccion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="seccion" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="tareas">
+    <Key>
+      <PropertyRef Name="idTareas" />
+    </Key>
+    <Property Name="idTareas" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="tarea" Type="nvarchar" MaxLength="50" />
+    <Property Name="idAlumno" Type="int" />
+  </EntityType>
+  <EntityType Name="tipoUsuario">
+    <Key>
+      <PropertyRef Name="id_tipo" />
+    </Key>
+    <Property Name="id_tipo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="tipo" Type="int" />
+    <Property Name="descripcion" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_admin_tipoUsuario">
+    <End Role="tipoUsuario" Type="Self.tipoUsuario" Multiplicity="1" />
+    <End Role="admin" Type="Self.admin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tipoUsuario">
+        <PropertyRef Name="id_tipo" />
+      </Principal>
+      <Dependent Role="admin">
+        <PropertyRef Name="id_tipo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_alumno_grado">
+    <End Role="grado" Type="Self.grado" Multiplicity="1" />
+    <End Role="alumno" Type="Self.alumno" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="grado">
+        <PropertyRef Name="idGrado" />
+      </Principal>
+      <Dependent Role="alumno">
+        <PropertyRef Name="idGrado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_alumno_tipoUsuario">
+    <End Role="tipoUsuario" Type="Self.tipoUsuario" Multiplicity="1" />
+    <End Role="alumno" Type="Self.alumno" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tipoUsuario">
+        <PropertyRef Name="id_tipo" />
+      </Principal>
+      <Dependent Role="alumno">
+        <PropertyRef Name="id_tipo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_docente_tipoUsuario">
+    <End Role="Asignatura" Type="Self.Asignatura" Multiplicity="1" />
+    <End Role="docente" Type="Self.docente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Asignatura">
+        <PropertyRef Name="idAsignatura" />
+      </Principal>
+      <Dependent Role="docente">
+        <PropertyRef Name="idAsignatura" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_docente_tipoUsuario1">
+    <End Role="tipoUsuario" Type="Self.tipoUsuario" Multiplicity="1" />
+    <End Role="docente" Type="Self.docente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tipoUsuario">
+        <PropertyRef Name="id_tipo" />
+      </Principal>
+      <Dependent Role="docente">
+        <PropertyRef Name="id_tipo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Grado_Seccion_grado">
+    <End Role="grado" Type="Self.grado" Multiplicity="0..1" />
+    <End Role="Grado_Seccion" Type="Self.Grado_Seccion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="grado">
+        <PropertyRef Name="idGrado" />
+      </Principal>
+      <Dependent Role="Grado_Seccion">
+        <PropertyRef Name="idGrado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Grado_Seccion_seccion">
+    <End Role="seccion" Type="Self.seccion" Multiplicity="0..1" />
+    <End Role="Grado_Seccion" Type="Self.Grado_Seccion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="seccion">
+        <PropertyRef Name="idSeccion" />
+      </Principal>
+      <Dependent Role="Grado_Seccion">
+        <PropertyRef Name="idSeccion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Notas_alumno">
+    <End Role="alumno" Type="Self.alumno" Multiplicity="1" />
+    <End Role="Notas" Type="Self.Notas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="alumno">
+        <PropertyRef Name="idAlumno" />
+      </Principal>
+      <Dependent Role="Notas">
+        <PropertyRef Name="idAlumno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Notas_Asignatura">
+    <End Role="Asignatura" Type="Self.Asignatura" Multiplicity="1" />
+    <End Role="Notas" Type="Self.Notas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Asignatura">
+        <PropertyRef Name="idAsignatura" />
+      </Principal>
+      <Dependent Role="Notas">
+        <PropertyRef Name="idAsignatura" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Notas_Periodos_Notas">
+    <End Role="Notas" Type="Self.Notas" Multiplicity="0..1" />
+    <End Role="Notas_Periodos" Type="Self.Notas_Periodos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Notas">
+        <PropertyRef Name="idNotas" />
+      </Principal>
+      <Dependent Role="Notas_Periodos">
+        <PropertyRef Name="idNotas" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Notas_Periodos_Periodos">
+    <End Role="Periodos" Type="Self.Periodos" Multiplicity="0..1" />
+    <End Role="Notas_Periodos" Type="Self.Notas_Periodos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Periodos">
+        <PropertyRef Name="idPeriodos" />
+      </Principal>
+      <Dependent Role="Notas_Periodos">
+        <PropertyRef Name="idPeriodos" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tareas_alumno">
+    <End Role="alumno" Type="Self.alumno" Multiplicity="0..1" />
+    <End Role="tareas" Type="Self.tareas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="alumno">
+        <PropertyRef Name="idAlumno" />
+      </Principal>
+      <Dependent Role="tareas">
+        <PropertyRef Name="idAlumno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="dbEstudiantesModel1StoreContainer">
+    <EntitySet Name="admin" EntityType="Self.admin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="alumno" EntityType="Self.alumno" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Asignatura" EntityType="Self.Asignatura" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="docente" EntityType="Self.docente" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="grado" EntityType="Self.grado" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Grado_Seccion" EntityType="Self.Grado_Seccion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Notas" EntityType="Self.Notas" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Notas_Periodos" EntityType="Self.Notas_Periodos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Periodos" EntityType="Self.Periodos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="seccion" EntityType="Self.seccion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tareas" EntityType="Self.tareas" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tipoUsuario" EntityType="Self.tipoUsuario" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_admin_tipoUsuario" Association="Self.FK_admin_tipoUsuario">
+      <End Role="tipoUsuario" EntitySet="tipoUsuario" />
+      <End Role="admin" EntitySet="admin" />
+    </AssociationSet>
+    <AssociationSet Name="FK_alumno_grado" Association="Self.FK_alumno_grado">
+      <End Role="grado" EntitySet="grado" />
+      <End Role="alumno" EntitySet="alumno" />
+    </AssociationSet>
+    <AssociationSet Name="FK_alumno_tipoUsuario" Association="Self.FK_alumno_tipoUsuario">
+      <End Role="tipoUsuario" EntitySet="tipoUsuario" />
+      <End Role="alumno" EntitySet="alumno" />
+    </AssociationSet>
+    <AssociationSet Name="FK_docente_tipoUsuario" Association="Self.FK_docente_tipoUsuario">
+      <End Role="Asignatura" EntitySet="Asignatura" />
+      <End Role="docente" EntitySet="docente" />
+    </AssociationSet>
+    <AssociationSet Name="FK_docente_tipoUsuario1" Association="Self.FK_docente_tipoUsuario1">
+      <End Role="tipoUsuario" EntitySet="tipoUsuario" />
+      <End Role="docente" EntitySet="docente" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Grado_Seccion_grado" Association="Self.FK_Grado_Seccion_grado">
+      <End Role="grado" EntitySet="grado" />
+      <End Role="Grado_Seccion" EntitySet="Grado_Seccion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Grado_Seccion_seccion" Association="Self.FK_Grado_Seccion_seccion">
+      <End Role="seccion" EntitySet="seccion" />
+      <End Role="Grado_Seccion" EntitySet="Grado_Seccion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Notas_alumno" Association="Self.FK_Notas_alumno">
+      <End Role="alumno" EntitySet="alumno" />
+      <End Role="Notas" EntitySet="Notas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Notas_Asignatura" Association="Self.FK_Notas_Asignatura">
+      <End Role="Asignatura" EntitySet="Asignatura" />
+      <End Role="Notas" EntitySet="Notas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Notas_Periodos_Notas" Association="Self.FK_Notas_Periodos_Notas">
+      <End Role="Notas" EntitySet="Notas" />
+      <End Role="Notas_Periodos" EntitySet="Notas_Periodos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Notas_Periodos_Periodos" Association="Self.FK_Notas_Periodos_Periodos">
+      <End Role="Periodos" EntitySet="Periodos" />
+      <End Role="Notas_Periodos" EntitySet="Notas_Periodos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tareas_alumno" Association="Self.FK_tareas_alumno">
+      <End Role="alumno" EntitySet="alumno" />
+      <End Role="tareas" EntitySet="tareas" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
